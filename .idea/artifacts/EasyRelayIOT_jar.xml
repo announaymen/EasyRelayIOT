@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="EasyRelayIOT:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/EasyRelayIOT_jar</output-path>
+    <root id="archive" name="EasyRelayIOT.jar">
+      <element id="module-output" name="EasyRelayIOT" />
+      <element id="extracted-dir" path="$USER_HOME$/Documents/NetBeansProjects/JavaFXApplication2/lib/jfoenix-8.0.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

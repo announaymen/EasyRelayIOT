@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_easyrelayiot" default="compile.module.easyrelayiot">
+  <dirname property="module.easyrelayiot.basedir" file="${ant.file.module_easyrelayiot}"/>
+  
+  <property name="module.jdk.home.easyrelayiot" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.easyrelayiot" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.easyrelayiot" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.easyrelayiot" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="easyrelayiot.output.dir" value="${module.easyrelayiot.basedir}/out/production/EasyRelayIOT"/>
+  <property name="easyrelayiot.testoutput.dir" value="${module.easyrelayiot.basedir}/out/test/EasyRelayIOT"/>
+  
+  <path id="easyrelayiot.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="easyrelayiot.module.production.classpath">
+    <path refid="${module.jdk.classpath.easyrelayiot}"/>
+    <path refid="library.jfoenix-8.0.1.classpath"/>
+  </path>
+  
+  <path id="easyrelayiot.runtime.production.module.classpath">
+    <pathelement location="${easyrelayiot.output.dir}"/>
+    <path refid="library.jfoenix-8.0.1.classpath"/>
+  </path>
+  
+  <path id="easyrelayiot.module.classpath">
+    <path refid="${module.jdk.classpath.easyrelayiot}"/>
+    <pathelement location="${easyrelayiot.output.dir}"/>
+    <path refid="library.jfoenix-8.0.1.classpath"/>
+  </path>
+  
+  <path id="easyrelayiot.runtime.module.classpath">
+    <pathelement location="${easyrelayiot.testoutput.dir}"/>
+    <pathelement location="${easyrelayiot.output.dir}"/>
+    <path refid="library.jfoenix-8.0.1.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.easyrelayiot">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.easyrelayiot">
+    <patternset refid="excluded.from.module.easyrelayiot"/>
+  </patternset>
+  
+  <path id="easyrelayiot.module.sourcepath">
+    <dirset dir="${module.easyrelayiot.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.easyrelayiot" depends="compile.module.easyrelayiot.production,compile.module.easyrelayiot.tests" description="Compile module EasyRelayIOT"/>
+  
+  <target name="compile.module.easyrelayiot.production" depends="register.custom.compilers" description="Compile module EasyRelayIOT; production classes">
+    <mkdir dir="${easyrelayiot.output.dir}"/>
+    <javac2 destdir="${easyrelayiot.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.easyrelayiot}/javac">
+      <compilerarg line="${compiler.args.easyrelayiot}"/>
+      <bootclasspath refid="easyrelayiot.module.bootclasspath"/>
+      <classpath refid="easyrelayiot.module.production.classpath"/>
+      <src refid="easyrelayiot.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.easyrelayiot"/>
+    </javac2>
+    
+    <copy todir="${easyrelayiot.output.dir}">
+      <fileset dir="${module.easyrelayiot.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.easyrelayiot.tests" depends="register.custom.compilers,compile.module.easyrelayiot.production" description="compile module EasyRelayIOT; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.easyrelayiot" description="cleanup module">
+    <delete dir="${easyrelayiot.output.dir}"/>
+    <delete dir="${easyrelayiot.testoutput.dir}"/>
+  </target>
+</project>
