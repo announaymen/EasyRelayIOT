@@ -42,12 +42,14 @@ public class ClientController {
         String LANG = Language.LANG;
         if (LANG.equals("FRENCH")) {
             System.out.println("changing to french");
+            client_combo_box.setPromptText("Francais");
             client_label.setText("Retirer ou deposer un colis");
             client_livreur_btn.setText("Êtes vous un livreur");
             client_num_colis.setPromptText("Entrer le numero de commande");
             client_password.setPromptText("Entrer le mot de passe");
             client_ok.setText("OK");
         } else {
+            client_combo_box.setPromptText("العربية");
             System.out.println("changing to arabic");
             client_label.setText(" إستلام أو إرجاع حزمة");
             client_livreur_btn.setText("  هل أنت موصل؟");
@@ -59,6 +61,7 @@ public class ClientController {
     @FXML
     public void initialize() {
         System.out.println(Language.LANG);
+        setLanguage();
         client_combo_box.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
